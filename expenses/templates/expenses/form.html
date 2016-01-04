@@ -1,0 +1,16 @@
+{% extends "main-template.html" %}
+	    
+	
+{% block body %}
+    
+    {% for field in form %}
+      <div class="col-xs-3">
+        {{ field.label_tag }}
+        {% if field.errors %} 
+            {{ field.errors.0 }}
+        {% endif %}
+        {{ field }}
+      </div>
+    {% endfor %}
+    
+{% endblock %}

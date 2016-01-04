@@ -1,0 +1,32 @@
+
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="pt">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		
+		
+		<link href="{% static 'style/bootstrap.css' %}" rel="stylesheet">
+		<link href="{% static 'style/style.css' %}" rel="stylesheet">
+		<title>4ccount</title>
+	</head>
+	<body>
+	    
+	 
+	  {% include "main/_top_nav.html" %}
+	   
+	  <div class="container-fluid">
+	    {% include "main/_side_menu.html" %}
+	    
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          {% block body %}
+  	  	{% endblock %}
+      </div>
+    </div>
+	
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="{% static 'js/bootstrap.js' %}"></script>
+	</body>
+</html>
