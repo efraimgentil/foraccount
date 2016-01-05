@@ -1,8 +1,8 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 from models import Expense
 from forms import SearchExpensesForm
 from forms import ExpenseForm
-from forms import ExpenseModelForm
 # Create your views here.
 
 
@@ -20,5 +20,11 @@ def search(request):
     
 
 def new(request):
-    form = ExpenseModelForm()
+    form = ExpenseForm()
+    if(request.POST):
+        form = ExpenseForm(request.POST)
+        if(form.is_valid()):
+            form.save()
+            return  redirect( request , "expenses" )
+        
     return render(request ,"expenses/form.html" , { "form" : form } ) 
