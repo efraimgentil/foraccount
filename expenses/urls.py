@@ -19,4 +19,5 @@ urlpatterns = [
     url(r'^expenses/$', "expenses.views.index" ,  name="expenses" ),
     url(r'^expenses/search$', "expenses.views.search" ,  name="search_expenses" ),
     url(r'^expenses/form$', "expenses.views.new" ,  name="new_expense" ),
+    url(r'^expenses/(?P<id>\d+)/form', "expenses.views.edit" ,  name="edit_expense" ),
 ]

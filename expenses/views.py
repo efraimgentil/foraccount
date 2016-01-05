@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from datetime import date
 from models import Expense
 from forms import SearchExpensesForm
 from forms import ExpenseForm
@@ -8,7 +9,8 @@ from forms import ExpenseForm
 
 def index(request):
     form = SearchExpensesForm()
-    return render(request ,"expenses/index.html" , { "expenses": [] , "form" : form  }) 
+    expenses = Expense.objects.filter(year = date.today().year , month = date.today().month )
+    return render(request ,"expenses/index.html" , { "expenses": expenses, "form" : form  }) 
 
 def search(request):
     form = SearchExpensesForm(request.GET)
@@ -25,6 +27,12 @@ def new(request):
         form = ExpenseForm(request.POST)
         if(form.is_valid()):
             form.save()
-            return  redirect( request , "expenses" )
+            return  redirect( "expenses" )
         
+    return render(request ,"expenses/form.html" , { "form" : form } ) 
+    
+def edit(request , id):    
+    print(id)
+    if(request.POST):
+        form = ExpenseForm(request.POST, instance = Expense.objects.get(pk=id))
     return render(request ,"expenses/form.html" , { "form" : form } ) 

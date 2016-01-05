@@ -35,15 +35,19 @@
                         <th>Nature</th>
                         <th>Date</th>
                         <th>Value</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for e in expenses %}
+                    {% for item in expenses %}
                         <tr>
-                            <td>{{e.id}}</td>
+                            <td>{{item.id}}</td>
                             <td>TODO</td>
-                            <td>{{e.date_expense | date:"d/m/Y" }}</td>
-                            <td>{{e.value | floatformat:"2"}}</td>
+                            <td>{{item.date_expense | date:"d/m/Y" }}</td>
+                            <td>{{item.value | floatformat:"2"}}</td>
+                            <td>
+                                {% include "main/snippets/_actions_snippet.html" %}
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
