@@ -24,7 +24,7 @@ class ExpenseForm(forms.ModelForm):
         model = Expense
         fields = ['year' , 'month' , 'date_expense' , 'value']
         widgets = {
-            'year': forms.Select(choices = ((str(x), x) for x in DateUtil.YEARS )  ,attrs={'class': 'form-control'}   ),
+            'year': forms.Select(choices = ((str(x), x) for x in DateUtil.YEARS ), attrs={'class': 'form-control'}),
             'month': forms.Select(choices = ((str(x), x) for x in DateUtil.MONTHS ) , attrs={'class': 'form-control'} ),
             'date_expense' : forms.DateInput(attrs={"class" :"form-control" } ),
             'value' : forms.NumberInput(attrs={"class" :"form-control" , "s" :"lol"} ),

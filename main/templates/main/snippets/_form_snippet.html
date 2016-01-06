@@ -1,7 +1,6 @@
 {% load i18n widget_tweaks %}
 
 {% with readonly  as readonly_attr %}
-<form role="form" action="{{action}}" method="post">
     {% csrf_token %}
     {% for field in form %}
       {% if field.errors %}
@@ -26,11 +25,4 @@
           </div>
       {% endif %}
     {% endfor %}
-    <div class="row">
-      <div class="col-sm-12">
-        <button type="submit" class="btn btn-primary"><span class="fa fa-save" style="margin-right:5px"></span>Save</button>
-        <a href="{% url back_url %}" class="btn btn-warning"><span class="fa fa-reply" style="margin-right:5px"></span> Cancel</a>
-      </div>
-    </div>
-</form>
 {% endwith %}
