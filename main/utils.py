@@ -14,3 +14,13 @@ class DateUtil:
     @staticmethod
     def months_available():        
         return DateUtil.MONTHS
+
+
+from django.contrib.auth.models import User
+
+class CurrentUserUtil:
+    
+    @staticmethod
+    def get_current_user():
+        return User.objects.get(pk = 2) 
+        
