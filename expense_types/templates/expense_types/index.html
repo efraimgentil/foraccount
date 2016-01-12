@@ -4,7 +4,7 @@
 {% block body %}
     <h1 class="page-header">Expense Types <a class="btn btn-success btn-sm pull-right" href="{% url 'new_expense_type' %}">Add</a></h1>
     
-    <form action="{% url 'search_expenses' %}">
+    <form action="{% url 'search_expense_types' %}">
         <div class="row">
             
             {% for field in form %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from forms import ExpenseTypeForm
+from forms import *
 from django.contrib.auth.models import User
 from models import ExpenseType
 from main.utils import CurrentUserUtil
@@ -9,9 +9,18 @@ from main.utils import CurrentUserUtil
 
 
 def index(request):
-    form = []
-    expense_types = ExpenseType.objects.all()
-    return render(request , 'expense_types/index.html' , { "form" : form, "expense_types"  : expense_types })
+    form = ExpenseTypeSearchForm()
+    expense_types = ExpenseType.objects.filter(user=CurrentUserUtil.get_current_user())
+    return render(request , 'expense_types/index.html' , { "form" : form, "expense_types" : expense_types })
+
+def search(request):
+    form = ExpenseTypeSearchForm(request.GET or None)
+    expense_types = ()
+    if form.is_valid():
+        expense_types = ExpenseType.objects.filter(name__icontains=form.cleaned_data['name'],
+            user = CurrentUserUtil.get_current_user() )
+    return render(request , "expense_types/index.html",
+        { "form" : form , "expense_types" : expense_types })
     
 def form(request):
     form = ExpenseTypeForm(request.POST or None)
