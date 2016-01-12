@@ -8,4 +8,7 @@ class ExpenseType(models.Model):
     description = models.TextField(max_length=200)
     user = models.ForeignKey(User)
     
+    def __str__(self):
+      return self.name 
+   
     

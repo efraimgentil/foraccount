@@ -2,6 +2,8 @@ from django import forms
 from datetime import date
 from main.utils import DateUtil
 from models import Expense
+from expense_types.models import ExpenseType
+from main.utils import CurrentUserUtil
 
 
 class SearchExpensesForm(forms.Form):
@@ -20,9 +22,11 @@ class SearchExpensesForm(forms.Form):
         return valid
 
 class ExpenseForm(forms.ModelForm):
+    
     class Meta:
         model = Expense
-        fields = ['year' , 'month' , 'date_expense' , 'value']
+        fields = ['year' , 'month' , 'type' , 'date_expense' , 'value']
+        expense_types = ExpenseType.objects.filter(user=CurrentUserUtil.get_current_user())
         widgets = {
             'year': forms.Select(choices = ((str(x), x) for x in DateUtil.YEARS ), attrs={'class': 'form-control'}),
             'month': forms.Select(choices = ((str(x), x) for x in DateUtil.MONTHS ) , attrs={'class': 'form-control'} ),
