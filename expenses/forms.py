@@ -25,7 +25,7 @@ class ExpenseForm(forms.ModelForm):
     
     class Meta:
         model = Expense
-        fields = ['year' , 'month' , 'type' , 'date_expense' , 'value']
+        fields = [ 'value' , 'date_expense' , 'type'  ]
         expense_types = ExpenseType.objects.filter(user=CurrentUserUtil.get_current_user())
         widgets = {
             'year': forms.Select(choices = ((str(x), x) for x in DateUtil.YEARS ), attrs={'class': 'form-control'}),

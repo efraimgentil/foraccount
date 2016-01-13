@@ -8,6 +8,4 @@
         <li class="{% is_active request expenses_url %}"><a href="{{ expenses_url }}">Expenses</a></li>
         <li class="{% is_active request expense_types_url %}"><a href="{{ expense_types_url }}">Expense Types</a></li>
     </ul>
-    {{ request.path  }}
-    {% url 'expenses' %}
 </div> 

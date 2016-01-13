@@ -42,7 +42,11 @@
                     {% for item in expenses %}
                         <tr>
                             <td>{{item.id}}</td>
-                            <td>TODO</td>
+                            <td>{{item.type.name }}
+                                {% if item.type.description %}
+                                <span class="fa fa-question-circle" title="{{item.type.description}}"></span>
+                                {% endif %}
+                            </td>
                             <td>{{item.date_expense | date:"d/m/Y" }}</td>
                             <td>{{item.value | floatformat:"2"}}</td>
                             <td>

@@ -5,6 +5,7 @@ from datetime import date
 from models import Expense
 from forms import SearchExpensesForm
 from forms import ExpenseForm
+from main.utils import CurrentUserUtil
 # Create your views here.
 
 
@@ -28,7 +29,9 @@ def new(request):
         form = ExpenseForm(request.POST)
         if(form.is_valid()):
             expense = form.save(commit=False)
-            expense.user = User.objects.get(pk=2)
+            expense.user = CurrentUserUtil.get_current_user()
+            expense.year = expense.date_expense.year
+            expense.month = expense.date_expense.month
             expense.save()
             return  redirect( "expenses" )
         
@@ -38,6 +41,9 @@ def edit(request , id):
     if(request.POST):
         form = ExpenseForm(request.POST, instance = Expense.objects.get(pk=id))
         if form.is_valid():
+            expense = form.save(commit=False)
+            expense.year = expense.date_expense.year
+            expense.month = expense.date_expense.month
             form.save()
             return redirect("expenses")
     else:
