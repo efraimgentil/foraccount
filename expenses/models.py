@@ -1,7 +1,9 @@
 from django.db import models
+from django.db.models import Sum
 from django.contrib.auth.models import User
 from expense_types.models import ExpenseType
 from main.utils import CurrentUserUtil
+from datetime import date
 
 # Create your models here.
 
@@ -18,5 +20,9 @@ class Expense(models.Model):
         })
     user         = models.ForeignKey(User)
     
-    
-    
+    @staticmethod
+    def total_expenses(user , year=date.today().year , month=date.today().month ):
+        return Expense.objects.filter(user=user,
+                    year=year,
+                    month=month).aggregate(Sum("value"))
+        

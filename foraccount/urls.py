@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^', include("main.urls")),
     url(r'^', include("expenses.urls")),
     url(r'^', include("expense_types.urls")),
+    url(r'^', include("profits.urls")),
 ]

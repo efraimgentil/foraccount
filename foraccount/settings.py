@@ -41,7 +41,8 @@ INSTALLED_APPS = (
     "widget_tweaks",
     'expenses',
     'expense_types',
-    'main'
+    'profits',
+    'main',
 )
 
 MIDDLEWARE_CLASSES = (

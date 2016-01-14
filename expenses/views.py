@@ -11,14 +11,16 @@ from main.utils import CurrentUserUtil
 
 def index(request):
     form = SearchExpensesForm()
-    expenses = Expense.objects.filter(year = date.today().year , month = date.today().month )
+    user = CurrentUserUtil.get_current_user()
+    expenses = Expense.objects.filter(user=user , year = date.today().year , month = date.today().month )
     return render(request ,"expenses/index.html" , { "expenses": expenses, "form" : form  }) 
 
 def search(request):
     form = SearchExpensesForm(request.GET )
+    user = CurrentUserUtil.get_current_user()
     expenses = []
     if( form.is_valid ):
-        expenses = Expense.objects.filter(year = form.data['year'] , month = form.data['month'])
+        expenses = Expense.objects.filter(user=user, year = form.data['year'] , month = form.data['month'])
     
     return render(request ,"expenses/index.html" , { "expenses": expenses , "form" : form }) 
     

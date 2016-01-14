@@ -1,5 +1,26 @@
 {% extends "main-template.html" %}
 
 {% block body %}
-    HADUKNE
+   
+   
+   <div class="row">
+       <div class="col-sm-12 col-md-6">
+           <div class="panel panel-default">
+               <div class="panel-heading">Month Resume</div>
+               <div>
+                   <dl class="dl-horizontal">
+                       <dt>Expenses:</dt>
+                       <dd>{{ resume.expenses }}</dd>
+                       <dt>Profits:</dt>
+                       <dd>0.00</dd>
+                       <dt>Investments:</dt>
+                       <dd>0.00</dd>
+                       <dt>Investments Profits:</dt>
+                       <dd>0.00</dd>
+                   </dl>
+               </div>
+           </div>
+       </div>
+   </div>
+   
 {% endblock %}
