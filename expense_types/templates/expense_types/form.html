@@ -6,12 +6,7 @@
     
     <form role="form" action="{{action}}" method="post">
         {% include "main/snippets/_form_snippet.html"  %}
-        <div class="row">
-          <div class="col-sm-12">
-            <button type="submit" class="btn btn-primary"><span class="fa fa-save" style="margin-right:5px"></span>Save</button>
-            <a href="{% url 'expense_types' %}" class="btn btn-warning"><span class="fa fa-reply" style="margin-right:5px"></span> Cancel</a>
-          </div>
-        </div>
+        {% include "main/snippets/_form_actions_snippet.html" with back_url="expense_types"   %}
     </form>
     
     <script>

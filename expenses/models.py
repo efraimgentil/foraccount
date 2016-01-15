@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models import Sum
 from django.contrib.auth.models import User
 from expense_types.models import ExpenseType
-from main.utils import CurrentUserUtil
+from main.utils import UserUtil
 from datetime import date
 
 # Create your models here.
@@ -16,7 +16,7 @@ class Expense(models.Model):
     type         = models.ForeignKey( ExpenseType 
         , blank = False
         , limit_choices_to={
-            'user' : CurrentUserUtil.get_current_user()
+            'user' : UserUtil.get_current_user()
         })
     user         = models.ForeignKey(User)
     

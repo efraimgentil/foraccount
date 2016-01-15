@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from expenses.models import Expense
-from utils import CurrentUserUtil
+from utils import UserUtil
 # Create your views here.
 
 
 def index(request):
-    user =  CurrentUserUtil.get_current_user;
+    user =  UserUtil.get_current_user;
     resume = {
         "expenses":Expense.total_expenses(user)['value__sum']
     }

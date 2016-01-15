@@ -18,7 +18,7 @@ class DateUtil:
 
 from django.contrib.auth.models import User
 
-class CurrentUserUtil:
+class UserUtil:
     
     @staticmethod
     def get_current_user():

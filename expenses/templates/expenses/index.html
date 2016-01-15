@@ -2,9 +2,9 @@
 	    
 	
 {% block body %}
-    <h1 class="page-header">Expenses <a class="btn btn-success btn-sm pull-right" href="{% url 'new_expense' %}">Add</a></h1>
+    <h1 class="page-header">Expenses <a class="btn btn-success btn-sm pull-right" href="./new">Add</a></h1>
     
-    <form action="{% url 'search_expenses' %}">
+    <form action="./search">
         <div class="row">
             
             {% for field in form %}

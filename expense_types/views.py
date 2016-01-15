@@ -3,14 +3,14 @@ from django.shortcuts import redirect
 from forms import *
 from django.contrib.auth.models import User
 from models import ExpenseType
-from main.utils import CurrentUserUtil
+from main.utils import UserUtil
 
 # Create your views here.
 
 
 def index(request):
     form = ExpenseTypeSearchForm()
-    expense_types = ExpenseType.objects.filter(user=CurrentUserUtil.get_current_user())
+    expense_types = ExpenseType.objects.filter(user=UserUtil.get_current_user())
     return render(request , 'expense_types/index.html' , { "form" : form, "expense_types" : expense_types })
 
 def search(request):
@@ -18,7 +18,7 @@ def search(request):
     expense_types = ()
     if form.is_valid():
         expense_types = ExpenseType.objects.filter(name__icontains=form.cleaned_data['name'],
-            user = CurrentUserUtil.get_current_user() )
+            user = UserUtil.get_current_user() )
     return render(request , "expense_types/index.html",
         { "form" : form , "expense_types" : expense_types })
     
@@ -26,14 +26,14 @@ def form(request):
     form = ExpenseTypeForm(request.POST or None)
     if form.is_valid():
         expense_type = form.save(commit=False)
-        expense_type.user = CurrentUserUtil.get_current_user()
+        expense_type.user = UserUtil.get_current_user()
         expense_type.save()
         return redirect("expense_types")
     return render(request , 'expense_types/form.html' , {"form" : form })
 
 def edit(request , id):
     expense_type = ExpenseType.objects.get(pk=id  
-        , user = CurrentUserUtil.get_current_user() )
+        , user = UserUtil.get_current_user() )
     form = ExpenseTypeForm(request.POST or None , instance = expense_type )
     if form.is_valid():
         form.save()
@@ -42,7 +42,7 @@ def edit(request , id):
     
 def delete(request , id):
     expense_type = ExpenseType.objects.get(pk=id  
-        , user = CurrentUserUtil.get_current_user() )
+        , user = UserUtil.get_current_user() )
     if request.POST:
         expense_type.delete()
         return redirect("expense_types")

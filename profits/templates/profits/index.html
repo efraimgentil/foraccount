@@ -2,9 +2,9 @@
 	    
 	
 {% block body %}
-    <h1 class="page-header">Profits <a class="btn btn-success btn-sm pull-right" href="{% url 'new_expense' %}">Add</a></h1>
+    <h1 class="page-header">Profits <a class="btn btn-success btn-sm pull-right" href="./new">Add</a></h1>
     
-    <form action="{% url 'search_expenses' %}">
+    <form action="./search">
         <div class="row">
             
             {% for field in form %}
@@ -39,7 +39,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for item in expenses %}
+                    {% for item in profits %}
                         <tr>
                             <td>{{item.id}}</td>
                             <td>{{item.type.name }}
@@ -47,7 +47,7 @@
                                 <span class="fa fa-question-circle" title="{{item.type.description}}"></span>
                                 {% endif %}
                             </td>
-                            <td>{{item.date_expense | date:"d/m/Y" }}</td>
+                            <td>{{item.date }}</td>
                             <td>{{item.value | floatformat:"2"}}</td>
                             <td>
                                 {% include "main/snippets/_actions_snippet.html" %}
