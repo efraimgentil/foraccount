@@ -1,5 +1,7 @@
 from django.db import models
+from django.db.models import Sum
 from django.contrib.auth.models import User
+import datetime
 # Create your models here.
 
 
@@ -15,3 +17,6 @@ class Profit(models.Model):
         return "Profit[value={},date={},month={},year={},user={}".format(self.value,
         self.date, self.month,self.year , self.user)
     
+    @staticmethod
+    def total_for(user, month = datetime.date.today().month , year= datetime.date.today().year):
+        return Profit.objects.filter(user=user,month=month, year=year).aggregate(Sum("value"))
