@@ -20,3 +20,13 @@ class Profit(models.Model):
     @staticmethod
     def total_for(user, month = datetime.date.today().month , year= datetime.date.today().year):
         return Profit.objects.filter(user=user,month=month, year=year).aggregate(Sum("value"))
+    
+
+class ProfitType(models.Model):
+    
+    name = models.CharField( blank=False , max_length=50)
+    description = models.TextField(max_length=200, blank=True)
+    monthly = models.BooleanField(default=False)
+    user = models.ForeignKey(User , blank = False)
+    
+    

@@ -2,7 +2,7 @@ from datetime import date
 from django.shortcuts import render , redirect
 from models import Profit
 from main.utils import UserUtil
-from forms import SearchProfitsForm , ProfitForm
+from forms import SearchProfitsForm , ProfitForm, SearchProfitTypesForm
 # Create your views here.
 
 
@@ -51,6 +51,13 @@ def delete(request, id ):
     else:
         form = ProfitForm(None ,instance = Profit.objects.get(pk=id , user=UserUtil.get_current_user() ))
     return render(request ,"profits/delete.html" , { "form" : form } )
+    
+
+def types_index(request):
+    user = UserUtil.get_current_user()
+    form = SearchProfitTypesForm()
+    
+    return render(request , "profit_types/index.html" , {"form" : form })
     
     
     

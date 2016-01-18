@@ -25,3 +25,10 @@ class ProfitForm(forms.ModelForm):
             "date" : forms.DateInput(attrs={"class":"form-control"})
         }
     
+
+class SearchProfitTypesForm(forms.Form):
+    
+    name = forms.CharField(required=False,
+            widget = forms.TextInput(attrs={"class":"form-control"}),
+            max_length=50)
+    monthly = forms.BooleanField(required=False)
