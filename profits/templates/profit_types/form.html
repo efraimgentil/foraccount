@@ -1,0 +1,16 @@
+{% extends "main-template.html" %}
+	
+{% block body %}
+    <h1 class="page-header">Profit Type</h1>
+    
+    <form role="form" action="{{action}}" method="post">
+        {% include "main/snippets/_form_snippet.html"  %}
+        {% include "main/snippets/_form_actions_snippet.html"  with back_url="profit_types"  %}
+    </form>
+    
+    <script>
+      window.onload=function(){
+        document.getElementById("id_value").focus();
+      }
+    </script>
+{% endblock %}

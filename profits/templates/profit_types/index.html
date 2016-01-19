@@ -32,23 +32,23 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Nature</th>
-                        <th>Date</th>
-                        <th>Value</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Monthly</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for item in profits %}
+                    {% for item in profit_types %}
                         <tr>
                             <td>{{item.id}}</td>
-                            <td>{{item.type.name }}
+                            <td>{{item.name }}
                                 {% if item.type.description %}
                                 <span class="fa fa-question-circle" title="{{item.type.description}}"></span>
                                 {% endif %}
                             </td>
-                            <td>{{item.date }}</td>
-                            <td>{{item.value | floatformat:"2"}}</td>
+                            <td>{{item.description }}</td>
+                            <td>{{item.monthly }}</td>
                             <td>
                                 {% include "main/snippets/_actions_snippet.html" %}
                             </td>

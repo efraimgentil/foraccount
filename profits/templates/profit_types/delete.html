@@ -1,0 +1,10 @@
+{% extends "main-template.html" %}
+	
+{% block body %}
+    <h1 class="page-header">Profit Type</h1>
+   
+    <form role="form" action="{{action}}" method="post">
+        {% include "main/snippets/_form_snippet.html" with back_url="profit_types" readonly="disabled:disabled"  %}
+        {% include "main/snippets/_form_deleteactions_snippet.html"  %}
+    </form>
+{% endblock %}

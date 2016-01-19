@@ -1,7 +1,7 @@
 from django import forms
 from main.utils import DateUtil
 from datetime import date
-from models import Profit
+from models import Profit , ProfitType
 
 class SearchProfitsForm(forms.Form):
     
@@ -32,3 +32,10 @@ class SearchProfitTypesForm(forms.Form):
             widget = forms.TextInput(attrs={"class":"form-control"}),
             max_length=50)
     monthly = forms.BooleanField(required=False)
+    
+
+class ProfitTypeForm(forms.ModelForm):
+    
+    class Meta:
+        model = ProfitType
+        fields = [ 'name' , 'description' , 'monthly']
