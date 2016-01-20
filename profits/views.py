@@ -1,5 +1,6 @@
 from datetime import date
 from django.shortcuts import render , redirect
+from django.contrib import messages
 from models import Profit , ProfitType
 from main.utils import UserUtil
 from forms import SearchProfitsForm , ProfitForm, SearchProfitTypesForm, ProfitTypeForm
@@ -54,10 +55,15 @@ def delete(request, id ):
     
 
 def types_index(request):
+    msgs = messages.get_messages(request)
+    for x in msgs:
+        print( x )
     user = UserUtil.get_current_user()
     form = SearchProfitTypesForm()
     profit_types = ProfitType.objects.filter(user=user)
-    return render(request , "profit_types/index.html" , {"form" : form , "profit_types" : profit_types  })
+    return render(request , "profit_types/index.html" ,
+        {"form" : form ,
+         "profit_types" : profit_types})
     
 def types_new(request):
     form = ProfitTypeForm(request.POST or None)
@@ -65,6 +71,7 @@ def types_new(request):
         profit_type = form.save(commit=False)
         profit_type.user = UserUtil.get_current_user() 
         profit_type.save()
+        messages.info(request, "Registro cadastrado com sucesso" ,fail_silently=True)
         return redirect("profit_types")
     
     return render(request , "profit_types/form.html" , { "form": form })

@@ -4,6 +4,24 @@
 {% block body %}
     <h1 class="page-header">Profit Type <a class="btn btn-success btn-sm pull-right" href="./new">Add</a></h1>
     
+    {{ messages }}
+    {% include 'main/snippets/_messages_snippet.html' %}
+    {% for msg in messages %}  
+        KAAKKA
+    {% endfor %}
+    {% if messages %}
+    
+    <ul class="messages">
+        {% for msg in messages %}       
+        <li>
+            <div class="alert alert-{{msg.level_tag}}" role="alert">
+     	{{msg.message}}
+    	</div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
     <form action="./search">
         <div class="row">
             
