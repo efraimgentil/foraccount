@@ -69,9 +69,23 @@ def types_new(request):
     
     return render(request , "profit_types/form.html" , { "form": form })
     
-    user = UserUtil.get_current_user()
-    form = SearchProfitTypesForm()
     
-    return render(request , "profit_types/index.html" , {"form" : form })
+def types_edit(request , id):
+    instance = ProfitType.objects.get(pk=id , user = UserUtil.get_current_user())
+    form = ProfitTypeForm( request.POST or None , instance=instance)
+    if form.is_valid():
+        profit_type = form.save(commit=False)
+        profit_type.save()
+        return redirect("profit_types")
     
-    
+    return render(request , "profit_types/form.html", {"form" : form })
+        
+def types_delete(request , id):
+    instance = ProfitType.objects.get(pk=id , user = UserUtil.get_current_user())
+    if request.POST:
+        instance.delete()
+        return redirect("profit_types")
+    form = ProfitTypeForm(  instance=instance)
+    return render(request , "profit_types/delete.html", {"form" : form })
+        
+        
