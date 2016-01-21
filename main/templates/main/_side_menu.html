@@ -9,11 +9,9 @@
     <ul class="nav nav-sidebar">
         <li class="{% is_active request home_url %}"><a href="{{ home_url }}">Overview <span class="sr-only">(current)</span></a></li>
         <li class="{% is_active request expenses_url %}"><a href="{{ expenses_url }}">Expenses</a></li>
+        <li class="{% is_active request expense_types_url %}"><a href="{{ expense_types_url }}">Expense Types</a></li>
         <li class="{% is_active request profits_url %}"><a href="{{ profits_url }}">Profits</a></li>
         <li class="{% is_active request profit_types_url %}"><a href="{{ profit_types_url }}">Profit Types</a></li>
-        <li class="{% is_active request expense_types_url %}"><a href="{{ expense_types_url }}">Expense Types</a></li>
     </ul>
-    URL: {% url 'profit_types' %}
-    {{ profit_types_url }}
 </div> 
 

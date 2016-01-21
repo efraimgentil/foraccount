@@ -30,6 +30,7 @@ def new(request):
         profit.month = profit.date.month
         profit.year = profit.date.year
         profit.save()
+        messages.success(request, "Record created with success" )
         return redirect("profits")
     
     return render(request , "profits/form.html" , { "form": form })
@@ -41,16 +42,17 @@ def edit(request , id ):
         profit.month = profit.date.month
         profit.year = profit.date.year
         profit.save()
+        messages.success(request, "Record updated with success" )
         return redirect("profits")
     return render(request , "profits/form.html" , { "form": form } )
     
 def delete(request, id ):
+    profit = Profit.objects.get(pk=id , user=UserUtil.get_current_user() )
     if request.POST:
-        profit = Profit.objects.get(pk=id , user=UserUtil.get_current_user() )
         profit.delete()
+        messages.success(request, "Record deleted with success" )
         return redirect("profits")
-    else:
-        form = ProfitForm(None ,instance = Profit.objects.get(pk=id , user=UserUtil.get_current_user() ))
+    form = ProfitForm(None ,instance = profit)
     return render(request ,"profits/delete.html" , { "form" : form } )
     
 
@@ -68,7 +70,7 @@ def types_new(request):
         profit_type = form.save(commit=False)
         profit_type.user = UserUtil.get_current_user() 
         profit_type.save()
-        messages.info(request, "Registro cadastrado com sucesso" )
+        messages.success(request, "Record created with success" )
         return redirect("profit_types")
     
     return render(request , "profit_types/form.html" , { "form": form })
@@ -80,6 +82,7 @@ def types_edit(request , id):
     if form.is_valid():
         profit_type = form.save(commit=False)
         profit_type.save()
+        messages.success(request, "Record updated with success" )
         return redirect("profit_types")
     
     return render(request , "profit_types/form.html", {"form" : form })
@@ -88,6 +91,7 @@ def types_delete(request , id):
     instance = ProfitType.objects.get(pk=id , user = UserUtil.get_current_user())
     if request.POST:
         instance.delete()
+        messages.success(request, "Record deleted with success" )
         return redirect("profit_types")
     form = ProfitTypeForm(  instance=instance)
     return render(request , "profit_types/delete.html", {"form" : form })
