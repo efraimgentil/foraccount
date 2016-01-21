@@ -67,15 +67,18 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.contrib.auth.context_processors.auth',
+                
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'foraccount.wsgi.application'
 
+WSGI_APPLICATION = 'foraccount.wsgi.application'
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+#MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases

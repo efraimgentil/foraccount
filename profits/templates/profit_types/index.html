@@ -5,12 +5,11 @@
     <h1 class="page-header">Profit Type <a class="btn btn-success btn-sm pull-right" href="./new">Add</a></h1>
     
     {{ messages }}
-    {% include 'main/snippets/_messages_snippet.html' %}
     {% for msg in messages %}  
         KAAKKA
     {% endfor %}
-    {% if messages %}
     
+    {% if messages %}
     <ul class="messages">
         {% for msg in messages %}       
         <li>

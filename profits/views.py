@@ -55,9 +55,6 @@ def delete(request, id ):
     
 
 def types_index(request):
-    msgs = messages.get_messages(request)
-    for x in msgs:
-        print( x )
     user = UserUtil.get_current_user()
     form = SearchProfitTypesForm()
     profit_types = ProfitType.objects.filter(user=user)
@@ -71,7 +68,7 @@ def types_new(request):
         profit_type = form.save(commit=False)
         profit_type.user = UserUtil.get_current_user() 
         profit_type.save()
-        messages.info(request, "Registro cadastrado com sucesso" ,fail_silently=True)
+        messages.info(request, "Registro cadastrado com sucesso" )
         return redirect("profit_types")
     
     return render(request , "profit_types/form.html" , { "form": form })
