@@ -2,6 +2,7 @@ from django import forms
 from main.utils import DateUtil
 from datetime import date
 from models import Profit , ProfitType
+from main.utils import UserUtil
 
 class SearchProfitsForm(forms.Form):
     
@@ -19,7 +20,7 @@ class ProfitForm(forms.ModelForm):
     
     class Meta:
         model = Profit
-        fields = ['value' , 'date'] 
+        fields = ['type' , 'value' , 'date'] 
         widgets = {
             "value" : forms.NumberInput(attrs={"class":"form-control"}),
             "date" : forms.DateInput(attrs={"class":"form-control"})

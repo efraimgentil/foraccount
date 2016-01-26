@@ -21,9 +21,7 @@ def search(request):
     expenses = []
     if( form.is_valid ):
         expenses = Expense.objects.filter(user=user, year = form.data['year'] , month = form.data['month'])
-    
     return render(request ,"expenses/index.html" , { "expenses": expenses , "form" : form }) 
-    
 
 def new(request):
     form = ExpenseForm(initial = { 'year' : date.today().year , 'month' : date.today().month })
@@ -36,7 +34,6 @@ def new(request):
             expense.month = expense.date_expense.month
             expense.save()
             return  redirect( "expenses" )
-        
     return render(request ,"expenses/form.html" , { "form" : form } ) 
     
 def edit(request , id):    
