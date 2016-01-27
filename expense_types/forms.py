@@ -10,7 +10,7 @@ class ExpenseTypeSearchForm(forms.Form):
 class ExpenseTypeForm(forms.ModelForm):
     class Meta:
         model = ExpenseType
-        fields = ['name' , 'description' ]
+        fields = ['name' , 'description' , "monthly" ]
         widget = {
             "name" : forms.TextInput(attrs={"class" : "form-control"}),
             "description" : forms.Textarea(attrs={"class" : "form-control"}),

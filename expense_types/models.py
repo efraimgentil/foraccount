@@ -7,6 +7,7 @@ class ExpenseType(models.Model):
     name = models.CharField(max_length=50, blank=False)
     description = models.TextField(max_length=200, blank=True)
     user = models.ForeignKey(User)
+    monthly = models.BooleanField(blank=True , null=False, default = False)
     
     def __str__(self):
       return self.name 
