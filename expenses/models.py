@@ -21,6 +21,6 @@ class Expense(models.Model):
     user         = models.ForeignKey(User)
     
     @staticmethod
-    def total_for(user , year=date.today().year , month=date.today().month ):
+    def total_for(user, month=date.today().month  , year=date.today().year  ):
         return Expense.objects.filter(user=user,year=year,month=month).aggregate(Sum("value"))
-        
+       
