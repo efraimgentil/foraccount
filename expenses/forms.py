@@ -1,3 +1,4 @@
+# -*- codding: UTF-8 -*-
 from django import forms
 from datetime import date
 from main.utils import DateUtil
@@ -25,7 +26,7 @@ class ExpenseForm(forms.ModelForm):
     
     class Meta:
         model = Expense
-        fields = [ 'value' , 'date_expense' , 'type'  ]
+        fields = [ 'type'  , 'value' , 'date_expense' , 'description'  ]
         expense_types = ExpenseType.objects.filter(user=UserUtil.get_current_user())
         widgets = {
             'year': forms.Select(choices = ((str(x), x) for x in DateUtil.YEARS ), attrs={'class': 'form-control'}),

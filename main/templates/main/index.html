@@ -1,7 +1,31 @@
 {% extends "main-template.html" %}
-
 {% block body %}
    
+   <div class="container-fluid" style="margin-bottom: 15px;">
+        <div class="row">
+              <div class="col-md-12">
+                    <form class="form-inline" action="" method="get">
+                        <label for="month">Month</label>
+                        <div class="form-group">
+                            <select id="month" name="month" class="form-control">
+                                {% for x in months %}
+                                    <option value="{{x}}" {% if selected_month == x %} selected="selected" {% endif %}  >{{x}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <label for="year">Year</label>
+                        <div class="form-group">
+                            <select id="year" name="year" class="form-control">
+                                {% for y in years %}
+                                    <option value="{{y}}" {% if selected_year == y %} selected="selected" {% endif %}  >{{y}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Load</button>
+                    </form>       
+              </div>      
+        </div>
+    </div>
    
    <div class="row">
        <div class="col-sm-12 col-md-6">
@@ -10,9 +34,9 @@
                <div>
                    <dl class="dl-horizontal">
                        <dt>Expenses:</dt>
-                       <dd>{{ resume.expenses }}</dd>
+                       <dd>{{ resume.expenses | floatformat:"2" }}</dd>
                        <dt>Profits:</dt>
-                       <dd>{{ resume.profits }}</dd>
+                       <dd>{{ resume.profits  | floatformat:"2" }}</dd>
                        <dt>Investments:</dt>
                        <dd>0.00</dd>
                        <dt>Investments Profits:</dt>
@@ -24,7 +48,7 @@
    </div>
    
     <div class="row">
-       <div class="col-sm-12 col-md-6">
+       <div class="col-sm-12 col-md-12">
            <div class="panel panel-default">
                <div class="panel-heading">Month Expenses by Type</div>
                <div>

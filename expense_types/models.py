@@ -12,7 +12,7 @@ class ExpenseType(models.Model):
     monthly = models.BooleanField(blank=True , null=False, default = False)
     
     def __str__(self):
-      return self.name 
+      return self.name.encode('utf8')
    
     
     @staticmethod 

@@ -103,3 +103,7 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
+
+span.ct-label.ct-horizontal.ct-end, span.ct-label.ct-vertical.ct-start {
+  font-size: 15px;
+}

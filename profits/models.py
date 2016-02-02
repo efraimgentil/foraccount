@@ -13,7 +13,7 @@ class ProfitType(models.Model):
     user = models.ForeignKey(User , blank = False)
     
     def __str__(self):
-        return "{}".format(self.name)
+        return "{}".format(self.name).encode("utf8")
 
 class Profit(models.Model):
     

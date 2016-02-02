@@ -13,7 +13,6 @@ class Expense(models.Model):
     month        = models.IntegerField( blank = False )
     date_expense = models.DateField( blank = False )
     value        = models.DecimalField(max_digits = 20, decimal_places = 2, blank = False )
-    description  = models.TextField( blank = True, null=True, max_length = 200 )
     type         = models.ForeignKey( ExpenseType 
         , blank = False
         , limit_choices_to={
