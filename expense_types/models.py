@@ -22,8 +22,9 @@ class ExpenseType(models.Model):
               Case(
                   When(
                     expense__id__isnull=False,
-                    expense__month=1,
-                    expense__user= user,
+                    expense__month = month,
+                    expense__year = year,
+                    expense__user = user,
                     then="expense__value",
                   ),
                   default=0,

@@ -37,12 +37,21 @@
    <script>
        window.onload = function(){
             new Chartist.Bar('#chart1', {
-  labels: ['M', 'T', 'W', 'T', 'F'],
-  series: [8, 19, 24, 37, 12]
-}, {
-  distributeSeries: true  
-});
-       }
+                
+            labels: [
+                 {% for x in month_expenses %}
+                    '{{ x.name }}' ,
+                 {% endfor %}
+            ],    
+            series: [
+                {% for x in month_expenses %}
+                    {{ x.sum_val }} ,
+                 {% endfor %}
+            ]
+            }, {
+                distributeSeries: true  
+            });
+       }    
    </script>
    
 {% endblock %}
