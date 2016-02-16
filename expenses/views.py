@@ -25,7 +25,7 @@ def search(request):
     return render(request ,"expenses/index.html" , { "expenses": expenses , "form" : form }) 
 
 def new(request):
-    form = ExpenseForm(initial = { 'year' : date.today().year , 'month' : date.today().month })
+    form = ExpenseForm(request.GET or None , initial = { 'year' : date.today().year , 'month' : date.today().month })
     if(request.POST):
         form = ExpenseForm(request.POST)
         if(form.is_valid()):

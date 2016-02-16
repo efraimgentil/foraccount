@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.core import serializers
+from django.http import JsonResponse
 from forms import *
 from django.contrib.auth.models import User
 from models import ExpenseType
@@ -49,4 +51,15 @@ def delete(request , id):
     else:
         form = ExpenseTypeForm( instance=expense_type )
     return render(request , "expense_types/delete.html", { "form" : form })
-    
+
+def subtypes(request , id ):
+    types = ExpenseType.objects.filter(father_expense_type=id,
+        user = UserUtil.get_current_user() )
+    data = []
+    for i in types:
+        data.append({ 
+         "pk" : i.pk,
+         "name" : i.name,
+        })
+    print( data )
+    return JsonResponse(data , safe=False);

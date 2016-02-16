@@ -16,9 +16,14 @@ class Expense(models.Model):
     description  = models.TextField( blank = True, null=True, max_length = 200 )
     type         = models.ForeignKey( ExpenseType 
         , blank = False
+        , related_name="expense"
         , limit_choices_to={
-            'user' : UserUtil.get_current_user()
+            'user' : UserUtil.get_current_user(),
+            'father_expense_type' : None
         })
+    subtype      = models.ForeignKey( ExpenseType
+        , null = False
+        , related_name="expense_subtypes")
     user         = models.ForeignKey(User)
     
     @staticmethod

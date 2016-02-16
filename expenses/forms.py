@@ -26,12 +26,16 @@ class ExpenseForm(forms.ModelForm):
     
     class Meta:
         model = Expense
-        fields = [ 'type'  , 'value' , 'date_expense' , 'description'  ]
-        expense_types = ExpenseType.objects.filter(user=UserUtil.get_current_user())
+        fields = [ 'type' , 'subtype' , 'value' , 'date_expense' , 'description'  ]
         widgets = {
             'year': forms.Select(choices = ((str(x), x) for x in DateUtil.YEARS ), attrs={'class': 'form-control'}),
             'month': forms.Select(choices = ((str(x), x) for x in DateUtil.MONTHS ) , attrs={'class': 'form-control'} ),
             'date_expense' : forms.DateInput(attrs={"class" :"form-control" } ),
             'value' : forms.NumberInput(attrs={"class" :"form-control" , "s" :"lol"} ),
         }
+    
+    def __init__(self, *args, **kwargs):
+        super(ExpenseForm, self).__init__(*args, **kwargs)
+        print( self.fields['type'] )
+        self.fields['subtype'] = forms.ChoiceField( choices=[] )        
     

@@ -10,6 +10,7 @@ class ExpenseType(models.Model):
     description = models.TextField(max_length=200, blank=True)
     user = models.ForeignKey(User)
     monthly = models.BooleanField(blank=True , null=False, default = False)
+    father_expense_type = models.ForeignKey('self', related_name="subtypes",  null=True)  
     
     def __str__(self):
       return self.name.encode('utf8')
