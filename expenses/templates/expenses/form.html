@@ -11,6 +11,15 @@
     <script>
       window.onload=function(){
         document.getElementById("id_value").focus();
+        $("#id_type").change( function(evt){
+          var id = parseInt($(this).val());
+          if(id){
+            $.get("/expense_types/"+id+"/subtypes/" , function(d){
+              console.log( d );  
+            });
+            
+          }
+        });
       }
     </script>
 {% endblock %}
