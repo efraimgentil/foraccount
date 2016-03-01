@@ -36,6 +36,5 @@ class ExpenseForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super(ExpenseForm, self).__init__(*args, **kwargs)
-        print( self.fields['type'] )
-        self.fields['subtype'] = forms.ChoiceField( choices=[] )        
+        self.fields['subtype'].queryset = ExpenseType.objects.none()        
     

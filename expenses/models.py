@@ -22,7 +22,8 @@ class Expense(models.Model):
             'father_expense_type' : None
         })
     subtype      = models.ForeignKey( ExpenseType
-        , null = False
+        , blank = True
+        , null = True
         , related_name="expense_subtypes")
     user         = models.ForeignKey(User)
     

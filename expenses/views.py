@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from datetime import date
 from models import Expense
+from expense_types.models import ExpenseType
 from forms import SearchExpensesForm
 from forms import ExpenseForm
 from main.utils import UserUtil
@@ -25,9 +26,14 @@ def search(request):
     return render(request ,"expenses/index.html" , { "expenses": expenses , "form" : form }) 
 
 def new(request):
-    form = ExpenseForm(request.GET or None , initial = { 'year' : date.today().year , 'month' : date.today().month })
+    form = ExpenseForm(request.POST or None , initial = { 'year' : date.today().year , 'month' : date.today().month })
+    
+    type_id = 0
+    if( request.POST ):
+        type_id = int( request.POST.get('type' , 0) )
+    form.fields['subtype'].queryset = ExpenseType.objects.filter( father_expense_type = type_id )
+        
     if(request.POST):
-        form = ExpenseForm(request.POST)
         if(form.is_valid()):
             expense = form.save(commit=False)
             expense.user = UserUtil.get_current_user()
@@ -39,7 +45,14 @@ def new(request):
     
 def edit(request , id):    
     user = UserUtil.get_current_user()
-    form = ExpenseForm(request.POST or None, instance = Expense.objects.get(pk=id, user = user ))
+    obj = Expense.objects.get(pk=id, user = user )
+    form = ExpenseForm(request.POST or None, instance = obj )
+    
+    type_id = obj.type.pk  
+    if( request.POST ):
+        type_id = int( request.POST.get('type' , 0) )
+    
+    form.fields['subtype'].queryset = ExpenseType.objects.filter( father_expense_type = type_id )
     if form.is_valid():
         expense = form.save(commit=False)
         expense.year = expense.date_expense.year

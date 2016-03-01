@@ -9,13 +9,20 @@
     </form>
     
     <script>
+      var k = null;
       window.onload=function(){
         document.getElementById("id_value").focus();
         $("#id_type").change( function(evt){
           var id = parseInt($(this).val());
           if(id){
-            $.get("/expense_types/"+id+"/subtypes/" , function(d){
-              console.log( d );  
+            var input = $("#id_subtype").clone().empty();
+            $(input).append($('<option>', {value: "" , text: "---------" }))
+            $.get("/expense_types/"+id+"/subtypes/" , function(subtypes){
+              for(var i = 0 ; i < subtypes.length ; i++ ){
+                var sub = subtypes[i];
+                $(input).append($('<option>', {value: sub.pk , text: sub.name }))
+              }
+              $("#id_subtype").replaceWith(input);
             });
             
           }
