@@ -1,6 +1,8 @@
 # -*- codding: UTF-8 -*-
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from datetime import date
 from models import Expense
@@ -30,17 +32,15 @@ def new(request):
     
     type_id = 0
     if( request.POST ):
-        type_id = int( request.POST.get('type' , 0) )
+        type_id = int( request.POST.get('type') or 0 )
     form.fields['subtype'].queryset = ExpenseType.objects.filter( father_expense_type = type_id )
-        
-    if(request.POST):
-        if(form.is_valid()):
-            expense = form.save(commit=False)
-            expense.user = UserUtil.get_current_user()
-            expense.year = expense.date_expense.year
-            expense.month = expense.date_expense.month
-            expense.save()
-            return  redirect( "expenses" )
+    if(form.is_valid()):
+        expense = form.save(commit=False)
+        expense.user = UserUtil.get_current_user()
+        expense.year = expense.date_expense.year
+        expense.month = expense.date_expense.month
+        expense.save()
+        return HttpResponseRedirect( "{}?month={}&year={}".format( reverse("search_expenses"),  expense.month , expense.year ) )
     return render(request ,"expenses/form.html" , { "form" : form } ) 
     
 def edit(request , id):    
@@ -50,7 +50,7 @@ def edit(request , id):
     
     type_id = obj.type.pk  
     if( request.POST ):
-        type_id = int( request.POST.get('type' , 0) )
+        type_id = int( request.POST.get('type') or 0 )
     
     form.fields['subtype'].queryset = ExpenseType.objects.filter( father_expense_type = type_id )
     if form.is_valid():
@@ -58,14 +58,14 @@ def edit(request , id):
         expense.year = expense.date_expense.year
         expense.month = expense.date_expense.month
         form.save()
-        return redirect("expenses")
+        return HttpResponseRedirect( "{}?month={}&year={}".format( reverse("search_expenses"),  expense.month , expense.year ) )
     return render(request ,"expenses/form.html" , { "form" : form } ) 
     
 def delete(request , id):  
     if(request.POST):
         expense = Expense.objects.get(pk=id , user = UserUtil.get_current_user())
         expense.delete()
-        return redirect("expenses")
+        return HttpResponseRedirect( "{}?month={}&year={}".format( reverse("search_expenses"),  expense.month , expense.year ) )
     else:
         form = ExpenseForm(instance = Expense.objects.get(pk=id , user = UserUtil.get_current_user()))
     return render(request ,"expenses/delete.html" , { "form" : form  } ) 
