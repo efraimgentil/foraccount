@@ -1,6 +1,8 @@
 from datetime import date
 from django.shortcuts import render , redirect
 from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from models import Profit , ProfitType
 from main.utils import UserUtil
 from forms import SearchProfitsForm , ProfitForm, SearchProfitTypesForm, ProfitTypeForm
@@ -31,8 +33,7 @@ def new(request):
         profit.year = profit.date.year
         profit.save()
         messages.success(request, "Record created with success" )
-        return redirect("profits")
-    
+        return HttpResponseRedirect( "{}?month={}&year={}".format( reverse("search_profits"), profit.month , profit.year))
     return render(request , "profits/form.html" , { "form": form })
 
 def edit(request , id ):
@@ -43,7 +44,7 @@ def edit(request , id ):
         profit.year = profit.date.year
         profit.save()
         messages.success(request, "Record updated with success" )
-        return redirect("profits")
+        return HttpResponseRedirect( "{}?month={}&year={}".format( reverse("search_profits") , profit.month , profit.year ))
     return render(request , "profits/form.html" , { "form": form } )
     
 def delete(request, id ):
@@ -51,7 +52,7 @@ def delete(request, id ):
     if request.POST:
         profit.delete()
         messages.success(request, "Record deleted with success" )
-        return redirect("profits")
+        return HttpResponseRedirect( "{}?month={}&year={}".format( reverse("search_profits") , profit.month , profit.year) )
     form = ProfitForm(None ,instance = profit)
     return render(request ,"profits/delete.html" , { "form" : form } )
     

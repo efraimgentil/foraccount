@@ -26,6 +26,7 @@ def search(request):
     
 def form(request):
     form = ExpenseTypeForm(request.POST or None)
+    form.fields['father_expense_type'].queryset = ExpenseType.objects.filter( father_expense_type = None )
     if form.is_valid():
         expense_type = form.save(commit=False)
         expense_type.user = UserUtil.get_current_user()
@@ -37,6 +38,7 @@ def edit(request , id):
     expense_type = ExpenseType.objects.get(pk=id  
         , user = UserUtil.get_current_user() )
     form = ExpenseTypeForm(request.POST or None , instance = expense_type )
+    form.fields['father_expense_type'].queryset = ExpenseType.objects.filter( father_expense_type = None )
     if form.is_valid():
         form.save()
         return redirect("expense_types")
